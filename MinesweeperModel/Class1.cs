@@ -54,6 +54,11 @@ namespace MinesweeperModel
             throw new NotImplementedException();
         }
 
+        internal void SetNeighborCount()
+        {
+            throw new NotImplementedException();
+        }
+
         List<Point> IModel.OpenCell(int col, int row)
         {
             throw new NotImplementedException();

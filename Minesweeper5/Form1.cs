@@ -12,7 +12,7 @@ namespace Minesweeper5
 {
     public partial class Form1 : Form
     {
-        int RowCount = 5, ColCount = 3;
+        int RowCount = 5, ColCount = 8;
         Button[,] buttons;
         MinesweeperModel.Model model = new MinesweeperModel.Model();
         public Form1()
@@ -24,7 +24,9 @@ namespace Minesweeper5
 
         private void InitializeComponent2()
         {
+            // Resize Window not allowed
             buttons = new Button[RowCount, ColCount];
+            bool color = false;
             for (int r = 0; r < RowCount; r++)
                 for (int c = 0; c < ColCount; c++)
                 {
@@ -36,6 +38,9 @@ namespace Minesweeper5
                     buttons[r, c].UseVisualStyleBackColor = true;
 
                     buttons[r, c].Click += OnButtonClick;
+                    buttons[r, c].Tag = new Point(c,r);
+                  //  buttons[r, c].BackColor = color ? Color.Green : Color.GreenYellow;
+                    color = ! color;
                 }
 
             // 
@@ -60,16 +65,26 @@ namespace Minesweeper5
 
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void OnButtonClick(object sender, EventArgs e)
         {
-            model.OpenCell(0, 0); // how to dtermine row and column?
+            
+            Button sourceButton = (Button)sender;
+            Point p = (Point) sourceButton.Tag;
+
+            // alt not needed - loop through all buttons and check == with sender
+            model.OpenCell(p.X, p.Y); // how to dtermine row and column?
 
             // UpdateUI based on move
             // OPtion1 update entire UI from model
             // Option 2 (RECOMMENDED) update cells that changed
 
             // if Bomb, how does model indicate that?
-            ((Button)sender).Text = ":-)";
+            buttons[p.Y,p.X].Text = ":-)";
         }
     }
 }
