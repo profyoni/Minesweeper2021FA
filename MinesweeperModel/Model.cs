@@ -28,6 +28,9 @@ namespace MinesweeperModel
     {
         //imp
         internal Cell[,] board;
+
+        public DifficultyLevel difficultyLevel { get; private set; }
+
         public void FlagCell(int col, int row, bool flagOn)
         {
             // data validation
@@ -44,14 +47,19 @@ namespace MinesweeperModel
             throw new NotImplementedException();
         }
 
-        public void OpenCell(int col, int row)
+        public List<System.Drawing.Point> OpenCell(int col, int row)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public void Setup(DifficultyLevel level)
         {
-            throw new NotImplementedException();
+            this.difficultyLevel = level;
+            board = new Cell[difficultyLevel.GetSize().Y, difficultyLevel.GetSize().X];
+            for (int x = 0; x < board.GetLength(1); x++)
+                for (int y = 0; y < board.GetLength(0); y++)
+                    board[y, x] = new Cell();
+
         }
 
         internal void SetNeighborCount()
